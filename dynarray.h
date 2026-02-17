@@ -8,8 +8,8 @@
  * MIT License. See bottom of file.
  */
 
-#ifndef LIB_DYNARRAY_H
-#define LIB_DYNARRAY_H
+#ifndef HLIBS_DYNARRAY_H
+#define HLIBS_DYNARRAY_H
 
 #include <string.h>
 #include <stdlib.h>

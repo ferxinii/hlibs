@@ -8,8 +8,8 @@
  * MIT license. See bottom of file.
  */
 
-#ifndef LIB_RANDOM_H
-#define LIB_RANDOM_H
+#ifndef HLIBS_RANDOM_H
+#define HLIBS_RANDOM_H
 #include <stdint.h>
 #include <stdbool.h>
 #include <assert.h>

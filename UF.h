@@ -5,8 +5,8 @@
  * MIT license. See bottom of file.
  */
 
-#ifndef LIB_UNION_FIND_H
-#define LIB_UNION_FIND_H
+#ifndef HLIBS_UNION_FIND_H
+#define HLIBS_UNION_FIND_H
 
 
 /* INTERFACE */

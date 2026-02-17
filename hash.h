@@ -12,8 +12,8 @@
  * grow (and rehash) if it becomes too full. 
  */
 
-#ifndef LIB_HASH_H
-#define LIB_HASH_H
+#ifndef HLIBS_HASH_H
+#define HLIBS_HASH_H
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>

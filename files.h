@@ -6,8 +6,8 @@
  */
 
 
-#ifndef LIB_FILES_H
-#define LIB_FILES_H
+#ifndef HLIBS_FILES_H
+#define HLIBS_FILES_H
 
 #include <stdio.h>
 
