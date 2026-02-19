@@ -14,6 +14,7 @@ static inline void UF_initialize(int N, int UF_parent[N], int UF_rank[N]);
 static inline int UF_find(int x, int *parent);
 static inline void UF_union(int x, int y, int *parent, int *rank);
 static inline int UF_count_sets_and_label(int N, int UF_parent[N], int OUT_labels[N]);
+static inline void UF_group_by_label(int N, int labels[N], int N_sets, int buffer[N_sets], int out_indices[N], int optional_offsets[N_sets]);  /* O(N) */
 
 
 
@@ -69,6 +70,28 @@ static inline int UF_count_sets_and_label(int N, int UF_parent[N], int OUT_label
 
     return cluster_count;
 }
+
+
+static inline void UF_group_by_label(int N, int labels[N], int N_sets, int buffer[N_sets], int out_indices[N], int optional_offsets[N_sets])
+{   /* Sort by labels, using "counting sort" algorithn O(N) */
+    /* Count how many elements in each set */
+    memset(buffer, 0, sizeof(int)*N_sets);
+    for (int i=0; i<N; i++) 
+        buffer[labels[i]]++;
+    
+    /* Compute "prefix sum":  buffer[c] = end position of set c */
+    for (int i=1; i<N_sets; i++)
+        buffer[i] += buffer[i-1];
+
+    if (optional_offsets) memcpy(optional_offsets, buffer, sizeof(int)*N_sets); 
+    
+    /* Build output array */
+    for (int i=N-1; i>=0; i--) {
+        out_indices[buffer[labels[i]] - 1] = i;
+        buffer[labels[i]]--;
+    }
+}
+
 
 #endif
 

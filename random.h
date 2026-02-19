@@ -6,6 +6,8 @@
  * 
  * Copyright (c) 2026 Fernando Muñoz
  * MIT license. See bottom of file.
+ *
+ * TODO: Random sample from a given cdf
  */
 
 #ifndef HLIBS_RANDOM_H
@@ -35,6 +37,8 @@ static inline double random_uniform_double(s_random_context *ctx);  /* [0,1) */
 static inline double random_normal(s_random_context *ctx, double mean, double std);
 static inline int random_poisson(s_random_context *ctx, double lambda);
 static inline void random_shuffle(s_random_context *ctx, int N, int out[N]);
+static inline void random_pdf_to_cdf(int N, const double pdf[N], double cdf[N]);  /* Can be used in-place */
+static inline int random_sample_cdf(s_random_context *ctx, int N, const double cdf[N]);  /* No need to be normalised */
 
 
 
@@ -261,6 +265,30 @@ static inline void random_shuffle(s_random_context *ctx, int N, int out[N])
 		out[i] = out[j];
 		out[j] = tmp;
 	}
+}
+
+
+static inline void random_pdf_to_cdf(int N, const double pdf[N], double cdf[N])
+{   /* Can be used in-place */
+    cdf[0] = pdf[0];
+    for (int i = 1; i < N; i++) {
+        cdf[i] = cdf[i-1] + pdf[i];
+    }
+}
+
+
+static inline int random_sample_cdf(s_random_context *ctx, int N, const double cdf[N])
+{   /* Using binary search, no need to be normalised. */
+    double r = random_uniform_double(ctx) * cdf[N-1];  /* Uniform in [0, F(N-1)) */
+
+    int lo = 0, hi = N - 1;
+    while (lo < hi) {
+        int mid = lo + (hi - lo) / 2;
+        if (r < cdf[mid]) hi = mid;
+        else lo = mid + 1;
+    }
+
+    return lo;
 }
 
 
