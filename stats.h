@@ -37,7 +37,7 @@ static inline s_sample stats_add_sample(s_sample sample, double x)
     double d = x - sample.mu;
     int N = sample.N + 1;
     double mu = sample.mu + d/N;
-    double M2 = sample.M2 + (x - mu) * (x - sample.mu);
+    double M2 = sample.M2 + (x - mu) * d;
     return (s_sample){ .N = N, .mu = mu, .M2 = M2 };
 }
 

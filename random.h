@@ -177,7 +177,7 @@ static inline uint64_t random_uniform_range_u64(s_random_context *ctx, uint64_t 
 static inline double random_uniform_double(s_random_context *ctx) 
 {   /* [0, 1) */
     uint64_t x = random_uniform_u64(ctx);
-    const uint64_t top53 = x >> 11;  /* top 53 bits */
+    const uint64_t top53 = x >> 11;  /* top 53 bits, uniform */
     return (double)top53 * (1.0 / 9007199254740992.0);  /* divide by 2^53 */
 }
 
